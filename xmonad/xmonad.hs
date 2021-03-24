@@ -3,6 +3,7 @@ import XMonad
 import XMonad.Actions.Minimize
 import XMonad.Actions.Promote
 import XMonad.Actions.GridSelect
+import XMonad.Actions.WindowGo
 import XMonad.Core
 import Data.Ratio
 import XMonad.Hooks.DynamicLog
@@ -64,17 +65,22 @@ myKeys = \c -> mkKeymap c $
   -- Important applications
   , ("M-S-<Return>", spawn myTerminal) -- spawn terminal	
   , ("M-p", spawn "rofi -show run")    -- spawn rofi run menu
+  , ("M-z f", runOrRaise "firefox" (className =? "firefox"))    -- travel to firefox
+  , ("M-z q", runOrRaise "qutebrowser" (className =? "qutebrowser")) -- travel to qutebrowser
+  , ("M-z a", runOrRaise "Alacritty" (className =? "Alacritty")) -- travel to alacritty
 
   -- Open other applications
   , ("M-a m", spawn "termite -e pulsemixer") -- start pulsemixer
   , ("M-a f", spawn "termite -e nnn") -- nnn, terminal file manager
   , ("M-a h", spawn "termite -e htop") --- start htop
+	, ("M-a y", spawn "flameshot gui") -- start flameshot screenshot
 
   -- Navigation 
   , ("M-b", windows W.focusMaster) -- focus on master
   , ("M-j", windows W.focusDown)   -- next window
   , ("M-k", windows W.focusUp)     -- previous window     
   , ("M-<Backspace>", promote)     -- promote window to master
+  , ("M-q", windows W.focusMaster)
   , ("M-<Tab>", toggleFocus)       -- go to last focussed window
 
   -- Layouts
@@ -93,6 +99,9 @@ myKeys = \c -> mkKeymap c $
   , ("M-S-j", sendMessage MirrorShrink) -- Shrink width
   , ("M-S-k", sendMessage MirrorExpand) -- Expand width
 
+  -- Invert colors
+  , ("M-S-t", spawn "xrandr-invert-colors")
+
   -- Kill windows
   , ("M-S-c", kill)
  ]
@@ -101,7 +110,7 @@ myKeys = \c -> mkKeymap c $
 myStartupHook = do
  spawnOnce "nitrogen --restore &"    -- load wallpaper
  spawnOnce "picom &"                 -- load compositor for effects
- spawnOnce "xmobar"
+ spawnOnce "alacritty"   -- launch terminal with neofetch
 
 -- Layout
 myLayout = minimize ( avoidStruts (noBorders Full ||| tiled ||| Mirror tiled))
