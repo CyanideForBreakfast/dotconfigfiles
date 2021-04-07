@@ -21,6 +21,8 @@ Plug 'vim-utils/vim-man'
 Plug 'jremmen/vim-ripgrep'
 Plug 'mbbill/undotree'
 Plug 'szw/vim-maximizer'
-Plug 'neovimhaskell/haskell-vim'
 Plug 'ryanoasis/vim-devicons'
+
+Plug 'alx741/vim-hindent'
+Plug 'neovimhaskell/haskell-vim'
 call plug#end()

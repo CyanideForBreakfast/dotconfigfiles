@@ -44,3 +44,7 @@ nmap <F6> :NERDTreeToggle<CR>
 nnoremap <silent><F3> :MaximizerToggle<CR>
 vnoremap <silent><F3> :MaximizerToggle<CR>gv
 inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
+
+"FZF
+nnoremap <leader>F :Files<CR>
+nnoremap <leader>R :RG<CR>
