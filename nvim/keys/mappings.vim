@@ -4,11 +4,8 @@ nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>T :wincmd T<CR>
-nnoremap <leader>o :wincmd o<CR>
 nnoremap <leader>n :wincmd n<CR>
-nnoremap <leader>c :wincmd c<CR>
-nnoremap <leader>r :wincmd r<CR>
-nnoremap <leader>R :wincmd R<CR>
+nnoremap <leader>c: wincmd c<CR>
 nnoremap <leader>H :wincmd H<CR>
 nnoremap <leader>J :wincmd J<CR>
 nnoremap <leader>L :wincmd L<CR>
@@ -23,11 +20,8 @@ nnoremap <silent> <leader><TAB> :bnext<CR>
 nnoremap <silent> <leader><S-TAB> :bprevious<CR>
 
 "Better intending
-	vnoremap < <gv
-	vnoremap > >gv
-
-"Window maximizing and minimizing
-map <F5> <C-W>_<C-W><Bar>
+vnoremap < <gv
+vnoremap > >gv
 
 "UndoTreeToggle
 nnoremap <leader>u :UndotreeToggle<CR>
@@ -42,9 +36,24 @@ nmap <F6> :NERDTreeToggle<CR>
 
 "Vim-maximizer
 nnoremap <silent><F3> :MaximizerToggle<CR>
-vnoremap <silent><F3> :MaximizerToggle<CR>gv
-inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
+
+"Comments NERDCommenter
+nmap <silent> <M-/> <Plug>NERDCommenterToggle
+vmap <silent> <M-/> <Plug>NERDCommenterToggle
 
 "FZF
-nnoremap <leader>F :Files<CR>
-nnoremap <leader>R :RG<CR>
+"nnoremap <leader>F :Files<CR>
+"nnoremap <leader>R :RG<CR>
+
+"Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fm <cmd>Telescope marks<cr>
+nnoremap <leader>fq <cmd>Telescope quickfix<cr>
+nnoremap <leader>ft <cmd>Telescope file_browser<cr>
+nnoremap <leader>fo <cmd>Telescope oldfiles<cr>
+nnoremap <leader>fe <cmd>Telescope man_pages<cr>
+
+map <leader>vr :source ~/.config/nvim/init.vim<CR>
+
