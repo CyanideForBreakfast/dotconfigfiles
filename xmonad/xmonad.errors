@@ -1,7 +1,7 @@
 
-xmonad.hs:88:1: warning: [-Wtabs]
-    Tab character found here, and in five further locations.
+xmonad.hs:90:1: warning: [-Wtabs]
+    Tab character found here, and in four further locations.
     Please use spaces instead.
    |
-88 |         
+90 |         , ("M-z z", nextMatch Forward (className =? "Zathura"))
    | ^^^^^^^^

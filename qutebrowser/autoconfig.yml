@@ -6,6 +6,8 @@
 
 config_version: 2
 settings:
+  content.notifications.enabled:
+    https://www.reddit.com: false
   content.user_stylesheets:
     global: null
   statusbar.show:

@@ -24,6 +24,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.SimpleDecoration
 import XMonad.Layout.Simplest
+import XMonad.Layout.ToggleLayouts
 import XMonad.Operations
 import XMonad.Util.EZConfig
 import XMonad.Util.Run
@@ -60,7 +61,7 @@ myGSConfig colorizer = (buildDefaultGSConfig myGridConfig){
 -- ManageHook
 myManageHook = composeAll
  [
-   className =? "Termite" --> doRectFloat (W.RationalRect (1 % 4) (1 % 3) (1 % 2) (1 % 3))
+    className =? "Termite" --> doRectFloat (W.RationalRect (1 % 4) (1 % 3) (1 % 2) (1 % 3))
  ]
 
 -- Key Bindings
@@ -85,7 +86,7 @@ myKeys c = mkKeymap c
   , ("M-z t", raise (className =? "Termite")) -- travel to termite
   , ("M-z v", raise (className =? "VirtualBox Machine")) -- travel to VM
   , ("M-z d", raise (className =? "discord")) 
-	
+  , ("M-z o", raise (className =? "obsidian")) 
 	, ("M-z z", nextMatch Forward (className =? "Zathura"))
 
   -- Open other applications
@@ -108,7 +109,8 @@ myKeys c = mkKeymap c
 	, ("M-S-d", decreaseLimit)  -- decrease number of windows in Tall/mirror Tall layout
 
   -- Layouts
-  , ("M-<Space>", sendMessage NextLayout) -- next layout
+  , ("M-<Space>", sendMessage ToggleLayout) -- toggle from full screen to other layouts
+  , ("M-S-<Space>", sendMessage NextLayout) -- next layout
   , ("M-S-s", sendMessage ToggleStruts) -- toggle panels
 
   -- Minimize & maximize
@@ -156,7 +158,7 @@ myStartupHook = do
  spawnOnce "alacritty"   -- launch terminal with neofetch
 
 -- Layout
-myLayout = hiddenWindows $ avoidStruts (noBorders Full ||| tiled ||| Mirror tiled)
+myLayout = hiddenWindows $ avoidStruts $ toggleLayouts (noBorders Full) (tiled ||| Mirror tiled) 
  where
   tiled = BW.boringAuto . limitWindows 3 $ Tall nmaster delta ratio
   nmaster = 1           -- default number of windows in master
