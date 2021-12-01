@@ -26,11 +26,6 @@ vnoremap > >gv
 "UndoTreeToggle
 nnoremap <leader>u :UndotreeToggle<CR>
 
-"Had to do it. was mapped to space+h causing delay
-nmap ghs <Plug>(GitGutterStageHunk)
-nmap ghu <Plug>(GitGutterUndoHunk)
-nmap ghp <Plug>(GitGutterPreviewHunk)
-
 "Command to toggle nerdtree
 nmap <F6> :NERDTreeToggle<CR>
 

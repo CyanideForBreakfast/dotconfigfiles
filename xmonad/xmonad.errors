@@ -1,7 +1,15 @@
 
-xmonad.hs:90:1: warning: [-Wtabs]
-    Tab character found here, and in four further locations.
+xmonad.hs:50:1: warning: [-Wtabs]
+    Tab character found here, and in 19 further locations.
     Please use spaces instead.
    |
-90 |         , ("M-z z", nextMatch Forward (className =? "Zathura"))
+50 |         st_font = myFont,
    | ^^^^^^^^
+
+xmonad.hs:207:45: warning: [-Wdeprecations]
+    In the use of ‘defaultConfig’
+    (imported from XMonad, but defined in XMonad.Config):
+    Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
+    |
+207 |         , handleEventHook = handleEventHook defaultConfig <+> handleTimerEvent <+> docksEventHook
+    |                                             ^^^^^^^^^^^^^

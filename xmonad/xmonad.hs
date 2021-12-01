@@ -6,6 +6,7 @@ import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.GroupNavigation
 import XMonad.Actions.Promote
 import XMonad.Actions.GridSelect
+import XMonad.Actions.ShowText
 import XMonad.Actions.WindowGo
 import XMonad.Actions.WorkspaceNames
 import XMonad.Config.Desktop 
@@ -16,9 +17,10 @@ import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (doRectFloat)
 import XMonad.Hooks.RefocusLast
+import XMonad.Hooks.ToggleHook
 import XMonad.Layout
 import qualified XMonad.Layout.BoringWindows as BW
-import XMonad.Layout.LimitWindows
+import XMonad.Layout.LimitWindows as LW
 import XMonad.Layout.Hidden
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
@@ -34,7 +36,7 @@ import qualified XMonad.StackSet as W
 -- Values
 myTerminal = "alacritty"
 
-myAppTerminal = "termite"
+myAppTerminal = "kitty"
 
 myFont = "xft:Monaco:regular:size=15:"
 myBorderWidth = 3
@@ -42,6 +44,13 @@ myFocusWindowBorderColor = "#73fbd3"
 myNormalWindowBorderColor = "#03312e"
 
 myWorkspaces = ["1","2","3","4","5"]
+
+myTextConfig :: ShowTextConfig
+myTextConfig = STC {
+	st_font = myFont,
+	st_bg = myFocusWindowBorderColor,
+	st_fg = myNormalWindowBorderColor
+}
 
 -- Grid Select configuration
 myGridConfig = colorRangeFromClassName
@@ -61,7 +70,7 @@ myGSConfig colorizer = (buildDefaultGSConfig myGridConfig){
 -- ManageHook
 myManageHook = composeAll
  [
-    className =? "Termite" --> doRectFloat (W.RationalRect (1 % 4) (1 % 3) (1 % 2) (1 % 3))
+    toggleHook "system terminal" (className =? "kitty" --> doRectFloat (W.RationalRect (1 % 4) (1 % 3) (1 % 2) (1 % 3)))
  ]
 
 -- Key Bindings
@@ -83,16 +92,23 @@ myKeys c = mkKeymap c
   , ("M-z f", runOrRaise "firefox" (className =? "firefox"))    -- travel to firefox
   , ("M-z q", runOrRaise "qutebrowser" (className =? "qutebrowser")) -- travel to qutebrowser
   , ("M-z a", runOrRaise "Alacritty" (className =? "Alacritty")) -- travel to alacritty
-  , ("M-z t", raise (className =? "Termite")) -- travel to termite
+  , ("M-z t", raise (className =? "kitty")) -- travel to termite
   , ("M-z v", raise (className =? "VirtualBox Machine")) -- travel to VM
   , ("M-z d", raise (className =? "discord")) 
   , ("M-z o", raise (className =? "obsidian")) 
 	, ("M-z z", nextMatch Forward (className =? "Zathura"))
 
+	-- toggle system terminal's float
+	, ("M-z S-t", toggleHookNext "system terminal")
+
+	-- Go to next windows of same class.
+	, ( "M-n" , 	nextMatchWithThis Forward className)
+	, ( "M-S-n" , nextMatchWithThis Backward className)
+
   -- Open other applications
-  , ("M-a m", spawn "termite -e pulsemixer") -- start pulsemixer
-  , ("M-a f", spawn "termite -e nnn") -- nnn, terminal file manager
-  , ("M-a h", spawn "termite -e htop") --- start htop
+  , ("M-a m", spawn "kitty -e ncpamixer --tab o") -- start ncpamixer
+  , ("M-a f", spawn "kitty -e nnn") -- nnn, terminal file manager
+  , ("M-a h", spawn "kitty -e htop") --- start htop
   , ("M-a y", spawn "flameshot gui") -- start flameshot screenshot
 
   -- Navigation 
@@ -105,8 +121,8 @@ myKeys c = mkKeymap c
   , ("M-<Tab>", toggleFocus)       -- go to last focussed window
  	, ("M-o",windows W.shiftMaster)  -- move current window to top (master)
 
-	, ("M-S-i", increaseLimit)  -- increase number of windows in Tall/mirror Tall layout
-	, ("M-S-d", decreaseLimit)  -- decrease number of windows in Tall/mirror Tall layout
+	, ("M-S-i", LW.increaseLimit)  -- increase number of windows in Tall/mirror Tall layout
+	, ("M-S-d", LW.decreaseLimit)  -- decrease number of windows in Tall/mirror Tall layout
 
   -- Layouts
   , ("M-<Space>", sendMessage ToggleLayout) -- toggle from full screen to other layouts
@@ -149,6 +165,9 @@ myKeys c = mkKeymap c
   , ("M-w S-4", windows (W.shift "4"))
   , ("M-w 5", windows (W.greedyView "5"))
   , ("M-w S-5", windows (W.shift "5"))
+
+	, ("M-/", flashText myTextConfig 1 
+				"-> \n Hello \t World")
  ]
 
 -- Startup
@@ -160,7 +179,7 @@ myStartupHook = do
 -- Layout
 myLayout = hiddenWindows $ avoidStruts $ toggleLayouts (noBorders Full) (tiled ||| Mirror tiled) 
  where
-  tiled = BW.boringAuto . limitWindows 3 $ Tall nmaster delta ratio
+  tiled = BW.boringAuto (LW.limitWindows 3 $ Tall nmaster delta ratio)
   nmaster = 1           -- default number of windows in master
   delta = 3/100         -- percent to increment when resizing
   ratio = 1/2           -- proportion of master tile
@@ -185,5 +204,6 @@ main = do
   , keys = myKeys
   , manageHook = manageDocks <+> myManageHook
   , workspaces = myWorkspaces
+	, handleEventHook = handleEventHook defaultConfig <+> handleTimerEvent <+> docksEventHook
   }
 

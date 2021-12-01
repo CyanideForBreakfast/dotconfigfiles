@@ -44,7 +44,7 @@ set scrolloff=1
 set sidescroll=1
 set sidescrolloff=1
 set display+=lastline
-set foldcolumn=2                        " Folding abilities
+"set foldcolumn=2                        " Folding abilities
 
 " au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -52,5 +52,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " You can't stop me
 cmap w!! w !sudo tee %
 
-set foldmethod=marker
-set foldmarker =+++>>>,---<<<
+"set foldmethod=marker
+"set foldmarker =+++>>>,---<<<
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
