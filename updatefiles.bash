@@ -19,4 +19,4 @@ cp -r ~/.fimrc ./fim/.fimrc
 
 cp -r /etc/lynx.cfg /etc/lynx.lss ./lynx
 
-cp -r ~/.tmux.conf .
+cp -r ~/.tmux/tmux_new.conf .
