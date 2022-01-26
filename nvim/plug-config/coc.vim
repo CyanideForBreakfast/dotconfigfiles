@@ -10,9 +10,9 @@ else
 endif
 
 " nmap <silent> gd <Plug>(coc-definition)
-nnoremap <leader>ci <Plug>(coc-implementation)
-nnoremap <leader>ce <Plug>(coc-references)
-nnoremap <leader>cd <Plug>(coc-definition)
+nmap <leader>ci :call CocAction('jumpImplementation')<CR>
+nmap <leader>cd :call CocAction('jumpDefinition')<CR>
+nmap <leader>ce :call CocAction('jumpReferences')<CR>
 
 nnoremap <leader>ck :call <SID>show_documentation()<CR>
 function! s:show_documentation()

@@ -6,10 +6,10 @@ xmonad.hs:50:1: warning: [-Wtabs]
 50 |         st_font = myFont,
    | ^^^^^^^^
 
-xmonad.hs:207:45: warning: [-Wdeprecations]
+xmonad.hs:206:45: warning: [-Wdeprecations]
     In the use of ‘defaultConfig’
     (imported from XMonad, but defined in XMonad.Config):
     Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
     |
-207 |         , handleEventHook = handleEventHook defaultConfig <+> handleTimerEvent <+> docksEventHook
+206 |         , handleEventHook = handleEventHook defaultConfig <+> handleTimerEvent <+> docksEventHook
     |                                             ^^^^^^^^^^^^^

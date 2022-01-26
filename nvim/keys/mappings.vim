@@ -36,10 +36,6 @@ nnoremap <silent><F3> :MaximizerToggle<CR>
 nmap <silent> <M-/> <Plug>NERDCommenterToggle
 vmap <silent> <M-/> <Plug>NERDCommenterToggle
 
-"FZF
-"nnoremap <leader>F :Files<CR>
-"nnoremap <leader>R :RG<CR>
-
 "Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
@@ -52,3 +48,13 @@ nnoremap <leader>fe <cmd>Telescope man_pages<cr>
 
 map <leader>vr :source ~/.config/nvim/init.vim<CR>
 
+nnoremap <C-j> :cnext<CR>
+nnoremap <C-k> :cprev<CR>
+nnoremap <leader><C-j> :lnext<CR>
+nnoremap <leader><C-k> :lprev<CR>
+
+":CocDiagnostics - to hop on errors and populate them to location lists
+"<C-w>v : vsplit of same file
+"<C-w>o : Close all but current buffer
+"<C-w>r : Rotate your current buffers
+"reg 		: List register contents

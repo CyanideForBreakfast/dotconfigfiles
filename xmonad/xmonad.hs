@@ -36,7 +36,7 @@ import qualified XMonad.StackSet as W
 -- Values
 myTerminal = "alacritty"
 
-myAppTerminal = "kitty"
+myAppTerminal = "urxvt"
 
 myFont = "xft:Monaco:regular:size=15:"
 myBorderWidth = 3
@@ -70,7 +70,7 @@ myGSConfig colorizer = (buildDefaultGSConfig myGridConfig){
 -- ManageHook
 myManageHook = composeAll
  [
-    toggleHook "system terminal" (className =? "kitty" --> doRectFloat (W.RationalRect (1 % 4) (1 % 3) (1 % 2) (1 % 3)))
+    toggleHook "system terminal" (className =? "URxvt" --> doRectFloat (W.RationalRect (1 % 4) (1 % 3) (1 % 2) (1 % 3)))
  ]
 
 -- Key Bindings
@@ -92,23 +92,22 @@ myKeys c = mkKeymap c
   , ("M-z f", runOrRaise "firefox" (className =? "firefox"))    -- travel to firefox
   , ("M-z q", runOrRaise "qutebrowser" (className =? "qutebrowser")) -- travel to qutebrowser
   , ("M-z a", runOrRaise "Alacritty" (className =? "Alacritty")) -- travel to alacritty
-  , ("M-z t", raise (className =? "kitty")) -- travel to termite
-  , ("M-z v", raise (className =? "VirtualBox Machine")) -- travel to VM
+  , ("M-z t", raise (className =? myAppTerminal)) -- travel to termite
   , ("M-z d", raise (className =? "discord")) 
   , ("M-z o", raise (className =? "obsidian")) 
 	, ("M-z z", nextMatch Forward (className =? "Zathura"))
 
 	-- toggle system terminal's float
-	, ("M-z S-t", toggleHookNext "system terminal")
+	, ("M-z S-t", toggleHookAllNew "system terminal")
 
 	-- Go to next windows of same class.
 	, ( "M-n" , 	nextMatchWithThis Forward className)
 	, ( "M-S-n" , nextMatchWithThis Backward className)
 
   -- Open other applications
-  , ("M-a m", spawn "kitty -e ncpamixer --tab o") -- start ncpamixer
-  , ("M-a f", spawn "kitty -e nnn") -- nnn, terminal file manager
-  , ("M-a h", spawn "kitty -e htop") --- start htop
+  , ("M-a m", spawn "urxvt -e ncpamixer --tab o") -- start ncpamixer
+  , ("M-a f", spawn "urxvt -e nnn") -- nnn, terminal file manager
+  , ("M-a h", spawn "urxvt -e htop") --- start htop
   , ("M-a y", spawn "flameshot gui") -- start flameshot screenshot
 
   -- Navigation 
