@@ -1,15 +1,8 @@
+$ ghc --make xmonad.hs -i -ilib -fforce-recomp -main-is main -dynamic -v0 -outputdir /home/utkarsh_arch/.xmonad/build-x86_64-linux -o /home/utkarsh_arch/.xmonad/xmonad-x86_64-linux
 
-xmonad.hs:50:1: warning: [-Wtabs]
+xmonad.hs:74:1: warning: [-Wtabs]
     Tab character found here, and in 19 further locations.
     Please use spaces instead.
    |
-50 |         st_font = myFont,
+74 |         , className =? "qemu-system-x86_64" --> doFloat
    | ^^^^^^^^
-
-xmonad.hs:206:45: warning: [-Wdeprecations]
-    In the use of ‘defaultConfig’
-    (imported from XMonad, but defined in XMonad.Config):
-    Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
-    |
-206 |         , handleEventHook = handleEventHook defaultConfig <+> handleTimerEvent <+> docksEventHook
-    |                                             ^^^^^^^^^^^^^

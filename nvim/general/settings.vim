@@ -3,7 +3,7 @@ let mapleader=" "
 set iskeyword+=-                      	" treat dash separated words as a word text object"
 set formatoptions-=cro                  " Stop newline continution of comments
 
-syntax enable                           " Enables syntax highlighing
+" syntax enable                           " Enables syntax highlighing
 set noswapfile
 set hidden                              " Required to keep multiple buffers open multiple buffers
 set nobackup
@@ -44,6 +44,7 @@ set scrolloff=1
 set sidescroll=1
 set sidescrolloff=1
 set display+=lastline
+set colorcolumn=110
 "set foldcolumn=2                        " Folding abilities
 
 " au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC

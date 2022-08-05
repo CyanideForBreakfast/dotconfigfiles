@@ -47,9 +47,9 @@ myWorkspaces = ["1","2","3","4","5"]
 
 myTextConfig :: ShowTextConfig
 myTextConfig = STC {
-	st_font = myFont,
-	st_bg = myFocusWindowBorderColor,
-	st_fg = myNormalWindowBorderColor
+  st_font = myFont,
+  st_bg = myFocusWindowBorderColor,
+  st_fg = myNormalWindowBorderColor
 }
 
 -- Grid Select configuration
@@ -71,6 +71,7 @@ myGSConfig colorizer = (buildDefaultGSConfig myGridConfig){
 myManageHook = composeAll
  [
     toggleHook "system terminal" (className =? "URxvt" --> doRectFloat (W.RationalRect (1 % 4) (1 % 3) (1 % 2) (1 % 3)))
+	, className =? "qemu-system-x86_64" --> doFloat
  ]
 
 -- Key Bindings
@@ -88,7 +89,7 @@ myKeys c = mkKeymap c
 
   -- Important applications
   , ("M-S-<Return>", spawn myTerminal) -- spawn terminal	
-  , ("M-p", spawn "rofi -show run")    -- spawn rofi run menu
+  , ("M-p", spawn "rofi -show drun")    -- spawn rofi run menu
   , ("M-z f", runOrRaise "firefox" (className =? "firefox"))    -- travel to firefox
   , ("M-z q", runOrRaise "qutebrowser" (className =? "qutebrowser")) -- travel to qutebrowser
   , ("M-z a", runOrRaise "Alacritty" (className =? "Alacritty")) -- travel to alacritty
@@ -96,6 +97,8 @@ myKeys c = mkKeymap c
   , ("M-z d", raise (className =? "discord")) 
   , ("M-z o", raise (className =? "obsidian")) 
 	, ("M-z z", nextMatch Forward (className =? "Zathura"))
+	, ("M-z x", nextMatch Forward (className =? "xterm"))
+	, ("M-z r", nextMatch Forward (className =? "QuiteRss"))
 
 	-- toggle system terminal's float
 	, ("M-z S-t", toggleHookAllNew "system terminal")
@@ -185,7 +188,7 @@ myLayout = hiddenWindows $ avoidStruts $ toggleLayouts (noBorders Full) (tiled |
 
 main = do
  xmproc <- spawnPipe "xmobar"
- xmonad $ desktopConfig
+ xmonad $ docks desktopConfig
   { borderWidth = myBorderWidth
   , focusedBorderColor = myFocusWindowBorderColor
   , normalBorderColor = myNormalWindowBorderColor
@@ -203,6 +206,6 @@ main = do
   , keys = myKeys
   , manageHook = manageDocks <+> myManageHook
   , workspaces = myWorkspaces
-	, handleEventHook = handleEventHook defaultConfig <+> handleTimerEvent <+> docksEventHook
+	, handleEventHook = handleEventHook def <+> handleTimerEvent
   }
 

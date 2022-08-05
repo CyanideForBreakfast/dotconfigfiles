@@ -1,7 +1,7 @@
 call plug#begin('~/.config/nvim/autoload/plugged')
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'preservim/nerdtree'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'airblade/vim-rooter'
@@ -23,7 +23,10 @@ Plug 'preservim/nerdcommenter'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'Yggdroot/indentLine'
-
 Plug 'alx741/vim-hindent'
 Plug 'neovimhaskell/haskell-vim'
+Plug 'nvim-lua/plenary.nvim' " don't forget to add this one if you don't have it yet!
+Plug 'ThePrimeagen/harpoon'
+Plug 'lukas-reineke/virt-column.nvim'
+Plug 'tpope/vim-fugitive'
 call plug#end()

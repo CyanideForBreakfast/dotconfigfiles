@@ -26,8 +26,24 @@ vnoremap > >gv
 "UndoTreeToggle
 nnoremap <leader>u :UndotreeToggle<CR>
 
-"Command to toggle nerdtree
-nmap <F6> :NERDTreeToggle<CR>
+let g:NetrwIsOpen=0
+
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i 
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Lexplore
+    endif
+endfunction
+noremap <F6> :call ToggleNetrw()<CR>
 
 "Vim-maximizer
 nnoremap <silent><F3> :MaximizerToggle<CR>
@@ -37,14 +53,14 @@ nmap <silent> <M-/> <Plug>NERDCommenterToggle
 vmap <silent> <M-/> <Plug>NERDCommenterToggle
 
 "Telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fm <cmd>Telescope marks<cr>
-nnoremap <leader>fq <cmd>Telescope quickfix<cr>
-nnoremap <leader>ft <cmd>Telescope file_browser<cr>
-nnoremap <leader>fo <cmd>Telescope oldfiles<cr>
-nnoremap <leader>fe <cmd>Telescope man_pages<cr>
+nnoremap <leader>gf <cmd>Telescope find_files<cr>
+nnoremap <leader>gg <cmd>Telescope live_grep<cr>
+nnoremap <leader>gb <cmd>Telescope buffers<cr>
+nnoremap <leader>gm <cmd>Telescope marks<cr>
+nnoremap <leader>gq <cmd>Telescope quickfix<cr>
+nnoremap <leader>gt <cmd>Telescope file_browser<cr>
+nnoremap <leader>go <cmd>Telescope oldfiles<cr>
+nnoremap <leader>ge <cmd>Telescope man_pages<cr>
 
 map <leader>vr :source ~/.config/nvim/init.vim<CR>
 
@@ -58,3 +74,11 @@ nnoremap <leader><C-k> :lprev<CR>
 "<C-w>o : Close all but current buffer
 "<C-w>r : Rotate your current buffers
 "reg 		: List register contents
+"
+
+nnoremap <leader>mu :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <leader>mm :lua require("harpoon.mark").add_file()<CR>
+nnoremap <leader>a :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <leader>s :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <leader>d :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <leader>f :lua require("harpoon.ui").nav_file(4)<CR>
